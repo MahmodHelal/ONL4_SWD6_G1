@@ -36,8 +36,9 @@ public class LoginPage {
         driver.findElement(passwordTextBoxBy).sendKeys(password);
     }
 
-    public void clickLoginButton(){
+    public SecureAreaPage clickLoginButton(){
         driver.findElement(loginButtonBy).click();
+        return new SecureAreaPage(driver);
     }
 
     public String getExpectedTitle() {

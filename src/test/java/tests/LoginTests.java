@@ -4,18 +4,37 @@ import baseTest.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import page.HomPage;
 import page.LoginPage;
+import page.SecureAreaPage;
 
 public class LoginTests extends BaseTest {
+    SecureAreaPage secureAreaPage;
+
+SoftAssert softAssert = new SoftAssert();
 
     @Test
     public void validLogin(){
         loginPage = homePage.clickFormAuthentication();// loginPage = new LoginPage(driver);
+
         loginPage.setUsername("tomsmith");
         loginPage.setPassword("SuperSecretPassword!");
-        loginPage.clickLoginButton();
+        secureAreaPage = loginPage.clickLoginButton();
 
+        System.out.println("Before getCurrentUrl Assert");
+        Assert.assertTrue(driver.getCurrentUrl().contains("secure"));
+        System.out.println("After getCurrentUrl Assert");
+
+        System.out.println("Before getActualMessage Assert");
+        softAssert.assertEquals(secureAreaPage.getActualMessage(), secureAreaPage.getExpectedMessage(),"Message is not correct");
+        System.out.println("After getActualMessage Assert");
+
+        System.out.println("Before getActualTitle Assert");
+        Assert.assertEquals(secureAreaPage.getActualTitle(), secureAreaPage.getExpectedTitle());
+        System.out.println("After getActualTitle  Assert");
+
+        softAssert.assertAll();
     }
     @Test
     public void invalidUsernameLogin(){

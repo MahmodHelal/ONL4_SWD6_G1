@@ -9,15 +9,17 @@ import page.HomPage;
 import page.LoginPage;
 
 public class BaseTest {
-    WebDriver driver;
+    protected WebDriver driver;
     protected HomPage homePage;
     protected LoginPage loginPage;
 
 
-    @AfterClass
+
+
+/*    @AfterClass
     public void teardown(){
         driver.quit();
-    }
+    }*/
 
     @BeforeClass
     public void setup(){
@@ -29,8 +31,8 @@ public class BaseTest {
     public void goToHomePage(){
         driver.get("https://the-internet.herokuapp.com/");
         homePage = new HomPage(driver);
+  }
 
-    }
 
 
 }
